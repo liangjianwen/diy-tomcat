@@ -6,83 +6,109 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.LogFactory;
 import cn.hutool.system.SystemUtil;
+import com.ljw.diy.tomcat.catalina.Context;
 import com.ljw.diy.tomcat.http.Request;
 import com.ljw.diy.tomcat.http.Response;
 import com.ljw.diy.tomcat.util.Constant;
+import com.ljw.diy.tomcat.util.ThreadPoolUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class Bootstrap {
+    public static Map<String, Context> contextMap = new HashMap<>();
+
     public static void main(String[] args) {
         try {
             logJvm();
 
             int port = 18080;
-//            if (!NetUtil.isUsableLocalPort(port)){
-//                System.out.println(port + " 端口已经被占用！");
-//                return;
-//            }
+
+            scanContextsOnWebAppsFolder();
+
             ServerSocket ss = new ServerSocket(port);
 
             while (true){
                 Socket s = ss.accept();
-                /*InputStream is = s.getInputStream();
-                int bufferSize = 1024;
-                byte[] buffer = new byte[bufferSize];
-                is.read(buffer);
-                String requestString = new String(buffer, "utf-8");*/
-                Request request = new Request(s);
-                System.out.println("浏览器的输入信息： \r\n" + request.getRequestString());
-                System.out.println("uri:" + request.getUri());
+                Runnable r = new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Request request = new Request(s);
+                            System.out.println("浏览器的输入信息： \r\n" + request.getRequestString());
+                            System.out.println("uri:" + request.getUri());
 
-                Response response = new Response();
+                            Response response = new Response();
 
-                String uri = request.getUri();
-                if (null == uri)
-                    continue;
-                System.out.println(uri);
-                if ("/".equals(uri)){
-                    String html = "Hello DIY Tomcat from ljw";
-                    response.getWriter().println(html);
-                }else {
-                    //a.html -> uri /a.html,   fileName: a.html
-                    String fileName = StrUtil.removePrefix(uri, "/");
-                    File file = FileUtil.file(Constant.rootFolder, fileName);
-                    if (file.exists()){
-                        String fileContent = FileUtil.readUtf8String(file);
-                        response.getWriter().println(fileContent);
+                            String uri = request.getUri();
+                            if (null == uri)
+                                return;
 
-                        if (fileName.equals("timeConsume.html")){
-                            ThreadUtil.sleep(1000);//1 Sec
+                            Context context = request.getContext();
+
+                            System.out.println(uri);
+                            if ("/".equals(uri)){
+                                String html = "Hello DIY Tomcat from ljw";
+                                response.getWriter().println(html);
+                            }else {
+                                //a.html -> uri /a.html,   fileName: a.html
+                                String fileName = StrUtil.removePrefix(uri, "/");
+                                File file = FileUtil.file(context.getDocBase(), fileName);
+                                if (file.exists()){
+                                    String fileContent = FileUtil.readUtf8String(file);
+                                    response.getWriter().println(fileContent);
+
+                                    if (fileName.equals("timeConsume.html")){
+                                        ThreadUtil.sleep(1000);//1 Sec
+                                    }
+                                }else {
+                                    response.getWriter().println("File Not Found");
+                                }
+                            }
+
+                            handle200(s, response);
+                        }catch (Exception e){
+                            e.printStackTrace();
                         }
-                    }else {
-                        response.getWriter().println("File Not Found");
                     }
-                }
-                /*String html = "Hello DIY Tomcat from ljw";
-                response.getWriter().println(html);*/
-                handle200(s, response);
-
-
-                /*OutputStream os = s.getOutputStream();
-                String response_head = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n\r\n";
-                String responseString = "Hello DIY Tomcat from ljw";
-                responseString = response_head + responseString;
-                os.write(responseString.getBytes());
-                os.flush();
-                s.close();*/
+                };
+                ThreadPoolUtil.run(r);
             }
         }catch (IOException e){
             LogFactory.get().error(e);
             e.printStackTrace();
         }
+    }
+
+    private static void scanContextsOnWebAppsFolder(){
+        File[] folders = Constant.webappsFolder.listFiles();
+        for (File folder : folders){
+            if (!folder.isDirectory()){
+                continue;
+            }
+            loadContext(folder);
+        }
+    }
+
+    private static void loadContext(File folder){
+        String path = folder.getName();
+        if ("ROOT".equals(path)){
+            path = "/";
+        }else {
+            path = "/" + path;
+        }
+
+        String docBase = folder.getAbsolutePath();
+        Context context = new Context(path, docBase);
+
+        contextMap.put(context.getPath(), context);
     }
 
     private static void logJvm(){
