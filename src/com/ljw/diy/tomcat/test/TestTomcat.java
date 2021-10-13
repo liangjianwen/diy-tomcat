@@ -59,13 +59,19 @@ public class TestTomcat {
         long duration = timeInterval.intervalMs();
         System.out.println("duration:"+duration);
 
-        Assert.assertTrue(duration > 3000);
+        Assert.assertTrue(duration < 3000);
     }
 
     @Test
     public void testAIndex(){
         String html = getContentString("/a/index.html");
         Assert.assertEquals(html, "Hello DIY Tomcat from index.html@a");
+    }
+
+    @Test
+    public void testBIndex(){
+        String html = getContentString("/b/index.html");
+        Assert.assertEquals(html, "Hello DIY Tomcat from index.html@b");
     }
 
     private String getContentString(String uri){
