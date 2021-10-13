@@ -7,10 +7,10 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.LogFactory;
 import cn.hutool.system.SystemUtil;
 import com.ljw.diy.tomcat.catalina.Context;
+import com.ljw.diy.tomcat.catalina.Host;
 import com.ljw.diy.tomcat.http.Request;
 import com.ljw.diy.tomcat.http.Response;
 import com.ljw.diy.tomcat.util.Constant;
-import com.ljw.diy.tomcat.util.ServerXMLUtil;
 import com.ljw.diy.tomcat.util.ThreadPoolUtil;
 
 import java.io.File;
@@ -18,19 +18,18 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Bootstrap {
-    public static Map<String, Context> contextMap = new HashMap<>();
 
     public static void main(String[] args) {
         try {
             logJvm();
 
+            Host host = new Host();
             int port = 18080;
-
-            scanContextsOnWebAppsFolder();
-            scanContextsInServerXML();
 
             ServerSocket ss = new ServerSocket(port);
 
@@ -40,7 +39,7 @@ public class Bootstrap {
                     @Override
                     public void run() {
                         try {
-                            Request request = new Request(s);
+                            Request request = new Request(s, host);
                             System.out.println("浏览器的输入信息： \r\n" + request.getRequestString());
                             System.out.println("uri:" + request.getUri());
 
@@ -84,37 +83,6 @@ public class Bootstrap {
             LogFactory.get().error(e);
             e.printStackTrace();
         }
-    }
-
-    private static void scanContextsInServerXML(){
-        List<Context> contexts = ServerXMLUtil.getContexts();
-        for (Context context : contexts){
-            contextMap.put(context.getPath(), context);
-        }
-    }
-
-    private static void scanContextsOnWebAppsFolder(){
-        File[] folders = Constant.webappsFolder.listFiles();
-        for (File folder : folders){
-            if (!folder.isDirectory()){
-                continue;
-            }
-            loadContext(folder);
-        }
-    }
-
-    private static void loadContext(File folder){
-        String path = folder.getName();
-        if ("ROOT".equals(path)){
-            path = "/";
-        }else {
-            path = "/" + path;
-        }
-
-        String docBase = folder.getAbsolutePath();
-        Context context = new Context(path, docBase);
-
-        contextMap.put(context.getPath(), context);
     }
 
     private static void logJvm(){
