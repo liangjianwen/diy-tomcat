@@ -3,6 +3,7 @@ package com.ljw.diy.tomcat.http;
 import cn.hutool.core.util.StrUtil;
 import com.ljw.diy.tomcat.Bootstrap;
 import com.ljw.diy.tomcat.catalina.Context;
+import com.ljw.diy.tomcat.catalina.Engine;
 import com.ljw.diy.tomcat.catalina.Host;
 import com.ljw.diy.tomcat.util.MiniBrowser;
 
@@ -27,12 +28,12 @@ public class Request {
     private String uri;//请求的uri
     private Socket socket;
     private Context context;
-    private Host host;
+    private Engine engine;
 
-    public Request(Socket socket, Host host) throws IOException {
+    public Request(Socket socket, Engine engine) throws IOException {
         //创建Request对象用来解析requestString和uri
         this.socket = socket;
-        this.host = host;
+        this.engine = engine;
         parseHttpRequest();
         if (StrUtil.isEmpty(requestString)){
             return;
@@ -52,9 +53,9 @@ public class Request {
             path = "/" + path;
         }
 
-        context = host.getContext(path);
+        context = engine.getDefaultHost().getContext(path);
         if (null == context){
-            context = host.getContext("/");
+            context = engine.getDefaultHost().getContext("/");
         }
     }
 

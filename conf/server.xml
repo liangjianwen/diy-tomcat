@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Server>
-    <Host name="localhost">
-        <Context path="/b" docBase="/Users/liangjianwen/IdeaProjects/diy-tomcat/b"/>
-    </Host>
+    <Engine defaultHost="localhost">
+        <Host name="localhost">
+            <Context path="/b" docBase="/Users/liangjianwen/IdeaProjects/diy-tomcat/b"/>
+        </Host>
+    </Engine>
 </Server>
