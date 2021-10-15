@@ -45,6 +45,14 @@ public class ServerXMLUtil {
         return host.attr("defaultHost");
     }
 
+    public static String getServiceName(){
+        String xml = FileUtil.readUtf8String(Constant.serverXmlFile);
+        Document d = Jsoup.parse(xml);
+
+        Element service = d.select("Service").first();
+        return service.attr("name");
+    }
+
     public static List<Host> getHosts(Engine engine){
         List<Host> result = new ArrayList<>();
         String xml = FileUtil.readUtf8String(Constant.serverXmlFile);

@@ -5,6 +5,7 @@ import com.ljw.diy.tomcat.Bootstrap;
 import com.ljw.diy.tomcat.catalina.Context;
 import com.ljw.diy.tomcat.catalina.Engine;
 import com.ljw.diy.tomcat.catalina.Host;
+import com.ljw.diy.tomcat.catalina.Service;
 import com.ljw.diy.tomcat.util.MiniBrowser;
 
 import java.io.IOException;
@@ -28,12 +29,12 @@ public class Request {
     private String uri;//请求的uri
     private Socket socket;
     private Context context;
-    private Engine engine;
+    private Service service;
 
-    public Request(Socket socket, Engine engine) throws IOException {
+    public Request(Socket socket, Service service) throws IOException {
         //创建Request对象用来解析requestString和uri
         this.socket = socket;
-        this.engine = engine;
+        this.service = service;
         parseHttpRequest();
         if (StrUtil.isEmpty(requestString)){
             return;
@@ -52,6 +53,8 @@ public class Request {
         }else {
             path = "/" + path;
         }
+
+        Engine engine = service.getEngine();
 
         context = engine.getDefaultHost().getContext(path);
         if (null == context){

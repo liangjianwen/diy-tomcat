@@ -7,8 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.LogFactory;
 import cn.hutool.system.SystemUtil;
 import com.ljw.diy.tomcat.catalina.Context;
-import com.ljw.diy.tomcat.catalina.Engine;
-import com.ljw.diy.tomcat.catalina.Host;
+import com.ljw.diy.tomcat.catalina.Service;
 import com.ljw.diy.tomcat.http.Request;
 import com.ljw.diy.tomcat.http.Response;
 import com.ljw.diy.tomcat.util.Constant;
@@ -29,7 +28,7 @@ public class Bootstrap {
         try {
             logJvm();
 
-            Engine engine = new Engine();
+            Service service = new Service();
             int port = 18080;
 
             ServerSocket ss = new ServerSocket(port);
@@ -40,7 +39,7 @@ public class Bootstrap {
                     @Override
                     public void run() {
                         try {
-                            Request request = new Request(s, engine);
+                            Request request = new Request(s, service);
                             System.out.println("浏览器的输入信息： \r\n" + request.getRequestString());
                             System.out.println("uri:" + request.getUri());
 
