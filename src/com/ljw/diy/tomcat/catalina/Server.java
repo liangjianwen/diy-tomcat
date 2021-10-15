@@ -72,13 +72,22 @@ public class Server {
                                         ThreadUtil.sleep(1000);//1 Sec
                                     }
                                 }else {
-                                    response.getWriter().println("File Not Found");
+                                    handle404(s, uri);
+                                    return;
                                 }
                             }
 
                             handle200(s, response);
                         }catch (Exception e){
                             e.printStackTrace();
+                        }finally {
+                            try {
+                                if (!s.isClosed()){
+                                    s.close();
+                                }
+                            } catch (IOException e){
+                                e.printStackTrace();
+                            }
                         }
                     }
                 };
@@ -122,7 +131,14 @@ public class Server {
 
         OutputStream os = s.getOutputStream();
         os.write(responseBytes);
-        s.close();
+    }
+
+    protected void handle404(Socket socket, String uri) throws IOException {
+        OutputStream os = socket.getOutputStream();
+        String responseText = StrUtil.format(Constant.textFormat_404, uri, uri);
+        responseText = Constant.response_head_404 + responseText;
+        byte[] responseByte = responseText.getBytes("utf-8");
+        os.write(responseByte);
     }
 
 }
