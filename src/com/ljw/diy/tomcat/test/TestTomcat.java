@@ -64,13 +64,13 @@ public class TestTomcat {
 
     @Test
     public void testAIndex(){
-        String html = getContentString("/a/index.html");
+        String html = getContentString("/a");
         Assert.assertEquals(html, "Hello DIY Tomcat from index.html@a");
     }
 
     @Test
     public void testBIndex(){
-        String html = getContentString("/b/index.html");
+        String html = getContentString("/b");
         Assert.assertEquals(html, "Hello DIY Tomcat from index.html@b");
     }
 

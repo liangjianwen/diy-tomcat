@@ -30,9 +30,28 @@ public class Constant {
                     "</body>" +
                     "</html>";
 
+    public final static String response_head_500 = "HTTP/1.1 500 Internal Server Error\r\n" +
+            "Content-Type: text/html\r\n\r\n";
+
+    public final static String textFormat_500 = "<html><head><title>DIY Tomcat/1.0.1 - Error report</title><style>" +
+            "<!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} " +
+            "H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} " +
+            "H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} " +
+            "BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} " +
+            "B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#535D76;} " +
+            "P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;} " +
+            "A {color:black;} A.name{color:black;} HR{color:#525D76;}--></style>" +
+            "</head><body><h1>HTTP Status 500 - An execution occurred processing {}</h1>" +
+            "<HR size='1' noshade='noshade'><p><b>type</b>Exception report</p><p><b>message</b><u>An exception occurred processing {}</u></p><p><b>description</b>" +
+            "<u>The server encountered an internal error that prevented it from fulfilling this request.</u></p>" +
+            "<p>Stacktrace:</p><pre>{}</pre><HR size='1' noshade='noshade'><h3>Diy Tomcat 1.0.1</h3>" +
+            "</body></html>";
+
     public final static File webappsFolder = new File(SystemUtil.get("user.dir"), "webapps");
     public final static File rootFolder = new File(webappsFolder, "ROOT");
 
     public static final File confFolder = new File(SystemUtil.get("user.dir"), "conf");
     public static final File serverXmlFile = new File(confFolder, "server.xml");
+
+    public static final File webXmlFile = new File(confFolder, "web.xml");
 }

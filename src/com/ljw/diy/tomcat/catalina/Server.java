@@ -10,12 +10,14 @@ import com.ljw.diy.tomcat.http.Request;
 import com.ljw.diy.tomcat.http.Response;
 import com.ljw.diy.tomcat.util.Constant;
 import com.ljw.diy.tomcat.util.ThreadPoolUtil;
+import com.ljw.diy.tomcat.util.WebXMLUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -53,33 +55,35 @@ public class Server {
                             String uri = request.getUri();
                             if (null == uri)
                                 return;
+                            System.out.println(uri);
 
                             Context context = request.getContext();
-
-                            System.out.println(uri);
-                            if ("/".equals(uri)){
-                                String html = "Hello DIY Tomcat from ljw";
-                                response.getWriter().println(html);
-                            }else {
-                                //a.html -> uri /a.html,   fileName: a.html
-                                String fileName = StrUtil.removePrefix(uri, "/");
-                                File file = FileUtil.file(context.getDocBase(), fileName);
-                                if (file.exists()){
-                                    String fileContent = FileUtil.readUtf8String(file);
-                                    response.getWriter().println(fileContent);
-
-                                    if (fileName.equals("timeConsume.html")){
-                                        ThreadUtil.sleep(1000);//1 Sec
-                                    }
-                                }else {
-                                    handle404(s, uri);
-                                    return;
-                                }
+                            if ("/500.html".equals(uri)){
+                                throw new Exception("this is a deliberately created exception");
                             }
 
+                            if ("/".equals(uri)){
+                                uri = WebXMLUtil.getWelcomeFile(request.getContext());
+                            }
+
+                            //a.html -> uri /a.html,   fileName: a.html
+                            String fileName = StrUtil.removePrefix(uri, "/");
+                            File file = FileUtil.file(context.getDocBase(), fileName);
+                            if (file.exists()){
+                                String fileContent = FileUtil.readUtf8String(file);
+                                response.getWriter().println(fileContent);
+
+                                if (fileName.equals("timeConsume.html")){
+                                    ThreadUtil.sleep(1000);//1 Sec
+                                }
+                            }else {
+                                handle404(s, uri);
+                                return;
+                            }
                             handle200(s, response);
                         }catch (Exception e){
-                            e.printStackTrace();
+                            LogFactory.get().error(e);
+                            handle500(s, e);
                         }finally {
                             try {
                                 if (!s.isClosed()){
@@ -139,6 +143,34 @@ public class Server {
         responseText = Constant.response_head_404 + responseText;
         byte[] responseByte = responseText.getBytes("utf-8");
         os.write(responseByte);
+    }
+
+    protected void handle500(Socket s, Exception e){
+        try {
+            OutputStream os = s.getOutputStream();
+            StackTraceElement stes[] = e.getStackTrace();
+            StringBuffer sb = new StringBuffer();
+            sb.append(e.toString());
+            sb.append("\r\n");
+            for (StackTraceElement ste : stes){
+                sb.append("\t");
+                sb.append(ste.toString());
+                sb.append("\r\n");
+            }
+
+            String msg = e.getMessage();
+
+            if (null != msg && msg.length()>20){
+                msg = msg.substring(0, 19);
+            }
+
+            String text = StrUtil.format(Constant.textFormat_500, msg, e.toString(), sb.toString());
+            text = Constant.response_head_500 + text;
+            byte[] responseBytes = text.getBytes(StandardCharsets.UTF_8);
+            os.write(responseBytes);
+        } catch (IOException e1){
+            e1.printStackTrace();
+        }
     }
 
 }
