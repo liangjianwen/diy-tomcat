@@ -69,7 +69,12 @@ public class Server {
                             //a.html -> uri /a.html,   fileName: a.html
                             String fileName = StrUtil.removePrefix(uri, "/");
                             File file = FileUtil.file(context.getDocBase(), fileName);
+
                             if (file.exists()){
+                                String extName = FileUtil.extName(file);
+                                String mimeType = WebXMLUtil.getMimeType(extName);
+                                response.setContentType(mimeType);
+
                                 String fileContent = FileUtil.readUtf8String(file);
                                 response.getWriter().println(fileContent);
 

@@ -22,6 +22,10 @@ public class Response {
         return contentType;
     }
 
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
     public byte[] getBody() throws UnsupportedEncodingException{
         String content = stringWriter.toString();
         byte[] body = content.getBytes("utf-8");
