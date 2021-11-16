@@ -1,37 +1,106 @@
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Context <init>
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Context <init>
 INFO : Deploying web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/webapps/a
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Context <init>
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Context <init>
 INFO : Deployment of web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/webapps/a has finished in 81 ms
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Context <init>
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Context <init>
 INFO : Deploying web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/webapps/ROOT
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Context <init>
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Context <init>
 INFO : Deployment of web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/webapps/ROOT has finished in 0 ms
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Context <init>
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Context <init>
 INFO : Deploying web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/b
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Context <init>
-INFO : Deployment of web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/b has finished in 0 ms
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/b has finished in 1 ms
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Server logJvm
 INFO : Server version:		Ljw DiyTomcat/1.0.1
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Server logJvm
 INFO : Server built:		2021-09-25 10:00:00
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Server logJvm
 INFO : Server number:		1.0.1
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Server logJvm
 INFO : OS Name	:		Mac OS X
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Server logJvm
 INFO : OS Version:		12.0.1
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Server logJvm
 INFO : Architecture:		aarch64
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Server logJvm
 INFO : Java Home:		/Users/liangjianwen/Library/Java/JavaVirtualMachines/azul-11.0.11/Contents/Home
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Server logJvm
 INFO : JVM Version:		11.0.11+9-LTS
-11 12, 2021 20:18:52 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Server logJvm
 INFO : JVM Vendor:		Oracle Corporation
-11 12, 2021 20:19:00 下午 com.ljw.diy.tomcat.catalina.Server$1 error
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Connector init
+INFO : Initializing ProtocolHandler [http-bio-18080]
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Connector init
+INFO : Initializing ProtocolHandler [http-bio-18081]
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Connector init
+INFO : Initializing ProtocolHandler [http-bio-18082]
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Service init
+INFO : Initialization processed in 1 ms
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Connector start
+INFO : Starting ProtocolHandler [http-bio-18080]
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Connector start
+INFO : Starting ProtocolHandler [http-bio-18081]
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Connector start
+INFO : Starting ProtocolHandler [http-bio-18082]
+11 16, 2021 20:52:45 下午 com.ljw.diy.tomcat.catalina.Server start
+INFO : Server startup in 6 ms
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/webapps/a
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/webapps/a has finished in 87 ms
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/webapps/ROOT
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/webapps/ROOT has finished in 0 ms
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Context <init>
+INFO : Deploying web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/b
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Context <init>
+INFO : Deployment of web application directory /Users/liangjianwen/IdeaProjects/diy-tomcat/b has finished in 0 ms
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+INFO : Server version:		Ljw DiyTomcat/1.0.1
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+INFO : Server built:		2021-09-25 10:00:00
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+INFO : Server number:		1.0.1
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+INFO : OS Name	:		Mac OS X
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+INFO : OS Version:		12.0.1
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+INFO : Architecture:		aarch64
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+INFO : Java Home:		/Users/liangjianwen/Library/Java/JavaVirtualMachines/azul-11.0.11/Contents/Home
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+INFO : JVM Version:		11.0.11+9-LTS
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Server logJvm
+INFO : JVM Vendor:		Oracle Corporation
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Connector init
+INFO : Initializing ProtocolHandler [http-bio-18080]
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Connector init
+INFO : Initializing ProtocolHandler [http-bio-18081]
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Connector init
+INFO : Initializing ProtocolHandler [http-bio-18082]
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Service init
+INFO : Initialization processed in 1 ms
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Connector start
+INFO : Starting ProtocolHandler [http-bio-18080]
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Connector start
+INFO : Starting ProtocolHandler [http-bio-18081]
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Connector start
+INFO : Starting ProtocolHandler [http-bio-18082]
+11 16, 2021 20:54:15 下午 com.ljw.diy.tomcat.catalina.Server start
+INFO : Server startup in 3 ms
+11 16, 2021 20:54:36 下午 com.ljw.diy.tomcat.catalina.Connector$1 error
 ERROR: this is a deliberately created exception
 java.lang.Exception: this is a deliberately created exception
-	at com.ljw.diy.tomcat.catalina.Server$1.run(Server.java:62)
+	at com.ljw.diy.tomcat.catalina.Connector$1.run(Connector.java:61)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+11 16, 2021 20:55:17 下午 com.ljw.diy.tomcat.catalina.Connector$1 error
+ERROR: this is a deliberately created exception
+java.lang.Exception: this is a deliberately created exception
+	at com.ljw.diy.tomcat.catalina.Connector$1.run(Connector.java:61)
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
 	at java.base/java.lang.Thread.run(Thread.java:829)
