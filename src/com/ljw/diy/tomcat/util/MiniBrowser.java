@@ -111,7 +111,7 @@ public class MiniBrowser {
             printWriter.println(httpRequestString);
             InputStream is = client.getInputStream();
 
-            result = readBytes(is);
+            result = readBytes(is, true);
             client.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,7 +124,7 @@ public class MiniBrowser {
         return result;
     }
 
-    public static byte[] readBytes(InputStream is) throws IOException {
+    public static byte[] readBytes(InputStream is, boolean fully) throws IOException {
         int bufferSize = 1024;
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -135,7 +135,7 @@ public class MiniBrowser {
                 break;
             }
             baos.write(buffer, 0, length);
-            if (length != bufferSize){
+            if (!fully && length!=bufferSize){
                 break;
             }
         }
