@@ -9,6 +9,7 @@ import com.ljw.diy.tomcat.http.Request;
 import com.ljw.diy.tomcat.http.Response;
 import com.ljw.diy.tomcat.util.Constant;
 import com.ljw.diy.tomcat.util.WebXMLUtil;
+import com.ljw.diy.tomcat.webappservlet.HelloServlet;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,31 +30,36 @@ public class HttpProcessor {
                 throw new Exception("this is a deliberately created exception");
             }
 
-            if ("/".equals(uri)){
-                uri = WebXMLUtil.getWelcomeFile(request.getContext());
-            }
-
-            //a.html -> uri /a.html,   fileName: a.html
-            String fileName = StrUtil.removePrefix(uri, "/");
-            File file = FileUtil.file(context.getDocBase(), fileName);
-
-            if (file.exists()){
-                String extName = FileUtil.extName(file);
-                String mimeType = WebXMLUtil.getMimeType(extName);
-                response.setContentType(mimeType);
-
-                //String fileContent = FileUtil.readUtf8String(file);
-                //response.getWriter().println(fileContent);
-
-                byte body[] = FileUtil.readBytes(file);
-                response.setBody(body);
-
-                if (fileName.equals("timeConsume.html")){
-                    ThreadUtil.sleep(1000);//1 Sec
+            if ("/hello".equals(uri)){
+                HelloServlet helloServlet = new HelloServlet();
+                helloServlet.doGet(request, response);
+            } else {
+                if ("/".equals(uri)){
+                    uri = WebXMLUtil.getWelcomeFile(request.getContext());
                 }
-            }else {
-                handle404(s, uri);
-                return;
+
+                //a.html -> uri /a.html,   fileName: a.html
+                String fileName = StrUtil.removePrefix(uri, "/");
+                File file = FileUtil.file(context.getDocBase(), fileName);
+
+                if (file.exists()){
+                    String extName = FileUtil.extName(file);
+                    String mimeType = WebXMLUtil.getMimeType(extName);
+                    response.setContentType(mimeType);
+
+                    //String fileContent = FileUtil.readUtf8String(file);
+                    //response.getWriter().println(fileContent);
+
+                    byte body[] = FileUtil.readBytes(file);
+                    response.setBody(body);
+
+                    if (fileName.equals("timeConsume.html")){
+                        ThreadUtil.sleep(1000);//1 Sec
+                    }
+                }else {
+                    handle404(s, uri);
+                    return;
+                }
             }
             handle200(s, response);
         }catch (Exception e){

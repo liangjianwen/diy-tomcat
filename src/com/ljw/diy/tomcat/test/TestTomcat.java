@@ -92,6 +92,21 @@ public class TestTomcat {
         containAssert(response, "Content-Type: text/plain");
     }
 
+    @Test
+    public void testHello(){
+        String html = getContentString("/hello");
+        Assert.assertEquals(html, "Hello DIY Tomcat from HelloServlet");
+    }
+
+    private byte[] getContentBytes(String uri){
+        return getContentBytes(uri, false);
+    }
+
+    private byte[] getContentBytes(String uri, boolean gzip){
+        String url = StrUtil.format("http://{}:{}{}", ip, port, uri);
+        return MiniBrowser.getContentBytes(url, gzip);
+    }
+
     private String getContentString(String uri){
         String url = StrUtil.format("http://{}:{}{}", ip, port, uri);
         String content = MiniBrowser.getContentString(url);
