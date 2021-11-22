@@ -28,6 +28,7 @@ public class Request extends BaseRequest {
     private Socket socket;
     private Context context;
     private Service service;
+    private String method;
 
     public Request(Socket socket, Service service) throws IOException {
         //创建Request对象用来解析requestString和uri
@@ -39,12 +40,17 @@ public class Request extends BaseRequest {
         }
         parseUri();
         parseContext();
+        parseMethod();
         if (!"/".equals(context.getPath())){
             uri = StrUtil.removePrefix(uri, context.getPath());
             if (StrUtil.isEmpty(uri)){
                 uri = "/";
             }
         }
+    }
+
+    private void parseMethod(){
+        method = StrUtil.subBefore(requestString, " ", false);
     }
 
     private void parseContext(){
@@ -99,4 +105,8 @@ public class Request extends BaseRequest {
         this.context = context;
     }
 
+    @Override
+    public String getMethod() {
+        return method;
+    }
 }
