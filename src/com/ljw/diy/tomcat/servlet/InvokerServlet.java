@@ -4,6 +4,7 @@ import cn.hutool.core.util.ReflectUtil;
 import com.ljw.diy.tomcat.catalina.Context;
 import com.ljw.diy.tomcat.http.Request;
 import com.ljw.diy.tomcat.http.Response;
+import com.ljw.diy.tomcat.util.Constant;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,5 +34,7 @@ public class InvokerServlet extends HttpServlet {
 
         Object servletObject = ReflectUtil.newInstance(servletClassName);
         ReflectUtil.invoke(servletObject, "service", request, response);
+
+        response.setStatus(Constant.CODE_200);
     }
 }
