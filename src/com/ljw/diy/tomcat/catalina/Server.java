@@ -2,24 +2,9 @@ package com.ljw.diy.tomcat.catalina;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.thread.ThreadUtil;
-import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.LogFactory;
 import cn.hutool.system.SystemUtil;
-import com.ljw.diy.tomcat.http.Request;
-import com.ljw.diy.tomcat.http.Response;
-import com.ljw.diy.tomcat.util.Constant;
-import com.ljw.diy.tomcat.util.ThreadPoolUtil;
-import com.ljw.diy.tomcat.util.WebXMLUtil;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
