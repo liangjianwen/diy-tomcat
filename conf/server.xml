@@ -7,6 +7,7 @@
         <Engine defaultHost="localhost">
             <Host name="localhost">
                 <Context path="/b" docBase="/Users/liangjianwen/IdeaProjects/diy-tomcat/b"/>
+                <Context path="/javaweb" docBase="/Users/liangjianwen/IdeaProjects/javaweb/web"/>
             </Host>
         </Engine>
     </Service>

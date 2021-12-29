@@ -5,6 +5,7 @@ import cn.hutool.core.date.TimeInterval;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.LogFactory;
+import com.ljw.diy.tomcat.classloader.WebappClassLoader;
 import com.ljw.diy.tomcat.exception.WebConfigDuplicatedException;
 import com.ljw.diy.tomcat.util.ContextXMLUtil;
 import org.jsoup.Jsoup;
@@ -25,7 +26,10 @@ public class Context {
     private Map<String, String> servletName_className;
     private Map<String, String> className_servletName;
 
+    private WebappClassLoader webappClassLoader;
+
     public Context(String path, String docBase){
+        TimeInterval timeInterval = DateUtil.timer();
         this.path = path;
         this.docBase = docBase;
         this.contextWebXmlFile = new File(docBase, ContextXMLUtil.getWatchedResource());
@@ -34,7 +38,12 @@ public class Context {
         this.servletName_className = new HashMap<>();
         this.className_servletName = new HashMap<>();
 
+        ClassLoader commonClassLoader = Thread.currentThread().getContextClassLoader();
+        this.webappClassLoader = new WebappClassLoader(docBase, commonClassLoader);
+
+        LogFactory.get().info("Deploying web application directory {}", this.docBase);
         this.deploy();
+        LogFactory.get().info("Deployment of web application directory {} has finished in {} ms", this.docBase, timeInterval.intervalMs());
     }
 
     public String getPath() {
@@ -51,6 +60,10 @@ public class Context {
 
     public void setDocBase(String docBase) {
         this.docBase = docBase;
+    }
+
+    public WebappClassLoader getWebappClassLoader() {
+        return webappClassLoader;
     }
 
     private void deploy(){
